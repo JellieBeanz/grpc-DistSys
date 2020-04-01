@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service Dishwasher{
+rpc setDishwasher (setDishwasherRequest) returns (setDishwasherResponse) {}
+}
+
+message setDishwasherRequest{
+  string isFull = 1;
+  string temp = 2;
+  string timer = 3;
+}
+
+message setDishwasherResponse{
+  string message = 1;
+}

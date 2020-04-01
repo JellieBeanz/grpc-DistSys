@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+service Kettle {
+  rpc boilKettle (BoilRequest) returns (BoilResponse) {}
+  rpc boilingStatus (BoilRequest) returns (stream BoilStatus) {}
+
+}
+
+message BoilRequest{
+ string on = 1;
+}
+
+
+message BoilResponse{
+ string message = 1;
+}
+
+message BoilStatus{
+  string boilState = 1;
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+service Fridge {
+  rpc setTemperatureLevel (templevelRequest) returns (templevelResponse) {}
+  rpc addItem (itemRequest) returns (itemResponse){}
+}
+
+message templevelRequest{
+ string templevel = 1;
+}
+
+
+message templevelResponse{
+ string message = 1;
+}
+
+message itemRequest{
+ string itemName = 1;
+}
+
+message itemResponse{
+  string message = 1;
+}
