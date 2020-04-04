@@ -1,0 +1,21 @@
+
+
+syntax = "proto3";
+
+package light;
+
+// The greeting service definition.
+service Light {
+  // Sends a greeting
+  rpc turnOn (lightRequest) returns (lightReply) {}
+}
+
+// The request message containing the user's name.
+message lightRequest {
+  string status = 1;
+}
+
+// The response message containing the greetings
+message lightReply {
+  string message = 1;
+}
