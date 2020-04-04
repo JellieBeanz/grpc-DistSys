@@ -45,7 +45,7 @@ function startServer(){
     boilingStatus: boilingStatus
   });
 
-  server.bind('0.0.0.0:8001', grpc.ServerCredentials.createInsecure());
+  server.bind('0.0.0.0:8000', grpc.ServerCredentials.createInsecure());
   server.start();
 }
 

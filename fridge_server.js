@@ -24,11 +24,18 @@ function setTemperatureLevel(call, callback){
 }
 
 //fuction to add items to the fridge
-function addItem(call, callback){
+function addItem(call){
   //obtain the item name from the call
-  var itemName = `${call.request.itemName}`;
+  call.on('data', function(request){
+  var itemName = `${request.itemName}`;
+  console.log(itemName);
+  if(itemName == "exit"){
+    call.end();
+    return;
+  }
   items.push(itemName);
-  callback(null, {message: itemName + ' Added to fridge' + items});
+  call.write({message: itemName + ' added to fridge'});
+});
 }
 
 function startServer(){

@@ -8,7 +8,7 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs:
 var kettle_proto = grpc.loadPackageDefinition(packageDefinition);
 
 function configureClient(){
-  var client = new kettle_proto.Kettle('localhost:8001', grpc.credentials.createInsecure());
+  var client = new kettle_proto.Kettle('localhost:8000', grpc.credentials.createInsecure());
 
       client.boilKettle({on:'Yes'}, function(err, response){
          console.log(`response: ${response.message}`);

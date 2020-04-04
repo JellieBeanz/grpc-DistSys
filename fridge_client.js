@@ -13,7 +13,11 @@ const readline = require('readline').createInterface({
 })
 
 var client = new fridge_proto.Fridge('localhost:8001', grpc.credentials.createInsecure());
+var call = client.addItem();
 
+call.on('data', function(response){
+    console.log(`\nResponse: ${response.message}`);
+});
 
 function setTemperature(){
   readline.question(`Set fridge temperature level to: `, (templevel) => {
@@ -25,11 +29,12 @@ function setTemperature(){
 }
 
 function addItem(){
-  readline.question('What Item would you like to add to the fridge: ', (itemName) => {
-    client.addItem({itemName:itemName}, function(err, response){
-      console.log(`Response: ${response.message}`);
-    });
+  readline.on('\nWhat Item would you like to add to the fridge: ', (itemName) => {
+
+    call.write({itemName:itemName})
+
     readline.close()
+    addItem();
   })
 }
 
