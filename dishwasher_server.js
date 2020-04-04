@@ -22,7 +22,7 @@ function startServer(){
   setDishwasher: setDishwasher
 });
 
-  server.bind('0.0.0.0:8001', grpc.ServerCredentials.createInsecure());
+  server.bind('0.0.0.0:8002', grpc.ServerCredentials.createInsecure());
   server.start();
 }
 

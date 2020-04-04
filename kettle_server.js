@@ -1,18 +1,9 @@
 var PROTO_PATH = __dirname + '/kettle.proto';
 
 var grpc = require('grpc');
-var bonjour = require('bonjour')()
 
 
 var protoLoader = require('@grpc/proto-loader');
-
-// advertise an HTTP server on port 3000
-bonjour.publish({ name: 'KettleServer', type: 'http', port: 8001 })
-
-// browse for all http services
-bonjour.find({ type: 'http' }, function (service) {
-  console.log('Found an HTTP server:', service)
-})
 
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs: String, enums: String, defaults: true, oneofs: true });
 
@@ -25,17 +16,18 @@ function boilKettle(call, callback){
 function boilingStatus(call){
 
   var status = call.request.on;
-
+  var i = 0;
   if(status == "Yes"){
-    for(var i=0; i<=100; i++){
+      setInterval(function(){
+        i = ++i %360;
         call.write({boilState: `Kettle is boiled to ${i} Degrees Celcius`});
         if(i == 100){
-          call.write({boilState: `Kettle is fully boiled`});
+          call.write({boilState: 'Kettle is fully boiled'});
+          call.end();
         }
-    }
-  }
+      }, 500);
 
-    call.end();
+  }
 }
 
 function startServer(){

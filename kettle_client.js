@@ -11,7 +11,7 @@ function configureClient(){
   var client = new kettle_proto.Kettle('localhost:8000', grpc.credentials.createInsecure());
 
       client.boilKettle({on:'Yes'}, function(err, response){
-         console.log(`response: ${response.message}`);
+         console.log(`Response: ${response.message}`);
      });
 
       var call = client.boilingStatus({on:'Yes'});

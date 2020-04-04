@@ -2,7 +2,7 @@ syntax = "proto3";
 
 service Fridge {
   rpc setTemperatureLevel (templevelRequest) returns (templevelResponse) {}
-  rpc addItem (stream itemRequest) returns (stream itemResponse){}
+  rpc addRemoveItem (stream itemRequest) returns (stream itemResponse){}
 }
 
 message templevelRequest{
