@@ -13,7 +13,7 @@ def run():
     # of the code.
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = light_pb2_grpc.LightStub(channel)
-        response = stub.turnOn(light_pb2.lightRequest(status='on'))
+        response = stub.turnOn(light_pb2.lightRequest(status='off'))
     print("Response received: " + response.message)
 
 

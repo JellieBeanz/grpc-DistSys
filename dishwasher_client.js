@@ -7,11 +7,20 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs:
 
 var dishwasher_proto = grpc.loadPackageDefinition(packageDefinition);
 
+var client = new dishwasher_proto.Dishwasher('localhost:8001', grpc.credentials.createInsecure());
+var call = client.dishwasherCapacity();
 
 function configureClient(){
   var client = new dishwasher_proto.Dishwasher('localhost:8001', grpc.credentials.createInsecure());
 
-    client.setDishwasher({isFull:'True', temp:'150', timer:'60'}, function(err, response){
+
+      call.on('data', function(response){
+        call.write({capacity:'100'});
+        console.log('Full');
+      });
+
+
+    client.setDishwasher({temp:'150', timer:'60'}, function(err, response){
         console.log(`response: ${response.message}`);
     });
 }
