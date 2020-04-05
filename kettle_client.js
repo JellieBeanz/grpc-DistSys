@@ -9,11 +9,12 @@ var kettle_proto = grpc.loadPackageDefinition(packageDefinition);
 
 function configureClient(){
   var client = new kettle_proto.Kettle('localhost:8000', grpc.credentials.createInsecure());
-
+    //send in the boil request
       client.boilKettle({on:'Yes'}, function(err, response){
          console.log(`Response: ${response.message}`);
      });
 
+      //return a stream from the server to simulate a temperature sensor
       var call = client.boilingStatus({on:'Yes'});
 
           call.on('data', function(response){

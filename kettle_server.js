@@ -9,15 +9,19 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs:
 
 var kettle_proto = grpc.loadPackageDefinition(packageDefinition);
 
+//function to start the kettle boiling
 function boilKettle(call, callback){
     callback(null, {message: `Kettle is boiling: ${call.request.on}`});
 }
 
+//server side streaming
+//used to simulate a temperature sensor on the kettle to show the kettle boiling
 function boilingStatus(call){
 
   var status = call.request.on;
   var i = 0;
   if(status == "Yes"){
+    //set an interval to simulate a temperature sensor 
       setInterval(function(){
         i = ++i %360;
         call.write({boilState: `Kettle is boiled to ${i} Degrees Celcius`});

@@ -9,12 +9,12 @@ import light_pb2_grpc
 
 
 class Greeter(light_pb2_grpc.LightServicer):
-
+    #turn on the kitchen light
     def turnOn(self, request, context):
         status = request.status
         return light_pb2.lightReply(message='Light is now %s!' % request.status)
 
-
+#setup the server
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     light_pb2_grpc.add_LightServicer_to_server(Greeter(), server)

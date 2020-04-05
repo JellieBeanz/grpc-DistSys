@@ -18,7 +18,7 @@ var call = client.addRemoveItem();
 call.on('data', function(response){
     console.log(`\nResponse: ${response.message}`);
 });
-
+//set the temperature level of the fridge
 function setTemperature(){
   readline.question(`Set fridge temperature level to: `, (templevel) => {
     client.setTemperatureLevel({templevel:templevel}, function(err, response){
@@ -26,11 +26,12 @@ function setTemperature(){
     });
   })
 }
-
+//Bidirectional Streaming of items in and out of the fridge
 function addRemoveItem(){
+  //time out function to position lines and allow for an asychronous call callback
   setTimeout(function(){
-  readline.question('\nWhat Item would you like to add to the fridge: ', (itemName) => {
-
+  readline.question('\nWhat Item would you like to add or remove from the fridge: ', (itemName) => {
+    //to end the stream and call set temperature
     if(itemName == '' || itemName == 'exit'){
       setTemperature();
       }

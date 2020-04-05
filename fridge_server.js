@@ -31,6 +31,8 @@ function addRemoveItem(call){
   call.on('data', function(request){
 
   var itemName = `${request.itemName}`;
+
+  //end the stream on the server
   if(itemName == 'exit' || itemName == ''){
     call.end();
     return;
