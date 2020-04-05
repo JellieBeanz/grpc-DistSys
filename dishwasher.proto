@@ -1,7 +1,9 @@
 syntax = "proto3";
 
 service Dishwasher{
+// turn on the dishwasher
 rpc setDishwasher (setDishwasherRequest) returns (setDishwasherResponse) {}
+//stream the capacity from the client to the server
 rpc dishwasherCapacity (stream dishCapRequest) returns (dishCapRespons) {}
 }
 

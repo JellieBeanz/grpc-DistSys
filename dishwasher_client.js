@@ -10,22 +10,25 @@ var dishwasher_proto = grpc.loadPackageDefinition(packageDefinition);
 var client = new dishwasher_proto.Dishwasher('localhost:8002', grpc.credentials.createInsecure());
 
 function setDishwasher(){
-    client.setDishwasher({temp:'150', timer:'60'}, function(err, response){
-        console.log(`response: ${response.message}`);
-    });
+  setTimeout(function(){
+      client.setDishwasher({temp:'150', timer:'60'}, function(err, response){
+          console.log(`response: ${response.message}`);
+      });
+    },2000);
 }
 
-function dishwasherCapacity(){
-  var capacity = ['0','25','50','75','100'];
+function dishwasherCapacity(callback){
+  const numbers = ['0','20','40','60','80','100'];
 
-  console.log('\nCapacity called: ');
-  var call = client.dishwasherCapacity(function(error, response){
-      call.write({capacity:'100'});
-  for (let i = 0; i<capacity.length; i++){
-    call.write({capacity:'100'});
+  var call = client.dishwasherCapacity(function(error, number){
+     console.log('Response: ' + number.message);
+  });
+
+  for(let number of numbers){
+    call.write({capacity: number});
   }
-    call.end();
-  })
+   call.end();
+   setDishwasher();
 }
 
 dishwasherCapacity();

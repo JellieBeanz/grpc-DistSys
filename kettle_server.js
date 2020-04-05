@@ -21,7 +21,7 @@ function boilingStatus(call){
   var status = call.request.on;
   var i = 0;
   if(status == "Yes"){
-    //set an interval to simulate a temperature sensor 
+    //set an interval to simulate a temperature sensor
       setInterval(function(){
         i = ++i %360;
         call.write({boilState: `Kettle is boiled to ${i} Degrees Celcius`});

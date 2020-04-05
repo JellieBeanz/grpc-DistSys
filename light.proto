@@ -4,18 +4,18 @@ syntax = "proto3";
 
 package light;
 
-// The greeting service definition.
+// The service definition.
 service Light {
   // Sends a greeting
   rpc turnOn (lightRequest) returns (lightReply) {}
 }
 
-// The request message containing the user's name.
+// The request message containing the light request
 message lightRequest {
   string status = 1;
 }
 
-// The response message containing the greetings
+// The response message containing the response
 message lightReply {
   string message = 1;
 }

@@ -1,7 +1,10 @@
 syntax = "proto3";
 
 service Fridge {
+  //simple RPC to set temperature
   rpc setTemperatureLevel (templevelRequest) returns (templevelResponse) {}
+
+  //stream the contents and add/remove items
   rpc addRemoveItem (stream itemRequest) returns (stream itemResponse){}
 }
 

@@ -8,18 +8,16 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs:
 var dishwasher_proto = grpc.loadPackageDefinition(packageDefinition);
 var isFull = 'False';
 
-function dishwasherCapacity(call, callback){
-  console.log('Called cap function');
-
-  call.on('data', function(error, response) {
-      console.log('capacity');
-      var capacity = call.request.capacity;
-
+function dishwasherCapacity(call, callback) {
+  //process data that comes on from client
+  call.on('data', function(data){
+     console.log('capacity is at: ' + data.capacity + '%');
   });
+
   call.on('end', function() {
-      // call.end();
-      callback(null, {message: 'Full'});
-    });
+    isFull = 'True'
+    callback(null, {message:'Dishwasher is now Full' });
+  });
 }
 
 function setDishwasher(call, callback){
@@ -35,6 +33,7 @@ function startServer(){
   server.addService(dishwasher_proto.Dishwasher.service,{
   setDishwasher: setDishwasher,
   dishwasherCapacity: dishwasherCapacity
+  // clientStreaming: clientStreaming
 });
 
   server.bind('0.0.0.0:8002', grpc.ServerCredentials.createInsecure());
